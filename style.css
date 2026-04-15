@@ -831,6 +831,132 @@ html, body {
   color: var(--red);
 }
 
+/* ============================================================
+   SLIDE 4 — APPENDIX · ON THE FLOOR
+============================================================ */
+.slide-appendix {
+  overflow: hidden;
+}
+.slide-appendix .appendix-top {
+  position: absolute;
+  top: 40px;
+  left: 80px;
+  right: 80px;
+  z-index: 3;
+}
+.slide-appendix .eyebrow {
+  margin-top: 48px;
+}
+.slide-appendix .slide-headline {
+  font-size: 60px;
+  margin-top: 10px;
+}
+
+.polaroid-wall {
+  position: absolute;
+  left: 0; right: 0; top: 0; bottom: 0;
+  z-index: 1;
+}
+
+.polaroid-card {
+  position: absolute;
+  background: #fefdf7;
+  padding: 14px 14px 52px;
+  box-shadow: 0 18px 36px rgba(0,0,0,0.28), 0 2px 6px rgba(0,0,0,0.18);
+  border: 1px solid rgba(0,0,0,0.05);
+}
+.polaroid-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.polaroid-card figcaption {
+  position: absolute;
+  left: 0; right: 0; bottom: 10px;
+  text-align: center;
+  font-family: 'Permanent Marker', cursive;
+  color: #1a1a1a;
+  font-size: 16px;
+  padding: 0 10px;
+  line-height: 1.1;
+}
+/* tiny red tape at the top-centre of each polaroid */
+.polaroid-card::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  width: 58px;
+  height: 18px;
+  background: rgba(201,32,39,0.75);
+  transform: translateX(-50%) rotate(-3deg);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.18);
+}
+
+/* Crew (landscape, largest - the hero) — centre */
+.polaroid-card.pc-1 {
+  top: 280px; left: 560px;
+  width: 440px; height: 360px;
+  transform: rotate(-1.5deg);
+  z-index: 7;
+}
+.polaroid-card.pc-1 img { height: 294px; }
+
+/* Lettuce (portrait) — top-left under headline */
+.polaroid-card.pc-2 {
+  top: 220px; left: 80px;
+  width: 210px; height: 320px;
+  transform: rotate(-3deg);
+  z-index: 3;
+}
+.polaroid-card.pc-2 img { height: 254px; }
+
+/* POS spreadsheet (landscape) — top-right */
+.polaroid-card.pc-3 {
+  top: 200px; left: 1050px;
+  width: 330px; height: 280px;
+  transform: rotate(2.5deg);
+  z-index: 4;
+}
+.polaroid-card.pc-3 img { height: 214px; }
+
+/* Store records whiteboard (landscape) — bottom-right */
+.polaroid-card.pc-4 {
+  top: 500px; left: 1160px;
+  width: 340px; height: 290px;
+  transform: rotate(-2deg);
+  z-index: 5;
+}
+.polaroid-card.pc-4 img { height: 224px; }
+
+/* Briefing (landscape) — top centre-left, above crew */
+.polaroid-card.pc-5 {
+  top: 180px; left: 340px;
+  width: 310px; height: 260px;
+  transform: rotate(1.8deg);
+  z-index: 5;
+}
+.polaroid-card.pc-5 img { height: 194px; }
+
+/* Grill (portrait) — bottom-left */
+.polaroid-card.pc-6 {
+  top: 560px; left: 220px;
+  width: 210px; height: 320px;
+  transform: rotate(2.5deg);
+  z-index: 4;
+}
+.polaroid-card.pc-6 img { height: 254px; }
+
+/* Fries tasting (landscape) — bottom centre */
+.polaroid-card.pc-7 {
+  top: 620px; left: 620px;
+  width: 360px; height: 270px;
+  transform: rotate(-2.5deg);
+  z-index: 6;
+}
+.polaroid-card.pc-7 img { height: 204px; }
+
 /* CTA row */
 .cta-row {
   position: absolute;
