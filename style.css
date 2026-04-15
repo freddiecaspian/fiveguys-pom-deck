@@ -338,17 +338,23 @@ html, body {
   margin-top: 12px;
 }
 
-.challenge-bottom {
+.challenge-top {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 20px;
   align-items: stretch;
 }
 
+.challenge-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 18px;
+  align-items: stretch;
+  margin-top: 14px;
+}
+
 .field-note-block {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  display: contents;
 }
 
 .kraft-receipt {
@@ -359,18 +365,13 @@ html, body {
     repeating-linear-gradient(3deg, rgba(60,30,0,0.05) 0px, rgba(60,30,0,0.05) 1px, transparent 1px, transparent 4px),
     var(--kraft);
   color: var(--chalk);
-  padding: 22px 28px 28px;
+  padding: 18px 22px 22px;
   font-family: 'Archivo', sans-serif;
-  font-size: 15px;
+  font-size: 14px;
   line-height: 1.5;
   position: relative;
   box-shadow: 0 10px 24px rgba(0,0,0,0.22), inset 0 0 40px rgba(80,50,20,0.15);
   transform: rotate(-0.5deg);
-  /* torn bottom edge */
-  -webkit-mask-image:
-    linear-gradient(#000, #000),
-    conic-gradient(from -45deg at 50% 100%, #0000 25%, #000 0 75%, #0000 0);
-  mask-composite: intersect;
 }
 .kraft-receipt::after {
   content: "";
@@ -398,17 +399,19 @@ html, body {
 .whiteboard-photo {
   position: relative;
   background: #fefdf7;
-  padding: 10px 10px 14px;
-  box-shadow: 0 14px 30px rgba(0,0,0,0.22);
-  align-self: flex-start;
+  padding: 12px 12px 16px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.28);
+  align-self: stretch;
   max-width: 100%;
+  transform: rotate(-0.6deg);
 }
 .whiteboard-photo img {
   display: block;
   width: 100%;
-  height: auto;
-  max-height: 220px;
+  height: 100%;
+  max-height: 300px;
   object-fit: cover;
+  object-position: center 30%;
 }
 .whiteboard-photo.rot-a { transform: rotate(1deg); }
 .whiteboard-caption {
@@ -474,20 +477,20 @@ html, body {
 /* Frozen hero — the emotional centre, must dominate */
 .frozen-hero {
   width: 100%;
-  min-height: 320px;
-  padding: 24px 40px 28px;
+  min-height: 240px;
+  padding: 16px 32px 18px;
 }
 .frozen-numbers {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 14px;
-  gap: 60px;
+  margin-top: 6px;
+  gap: 40px;
 }
 .frozen-col { text-align: center; }
 .frozen-num {
   font-family: 'Anton', sans-serif;
-  font-size: 168px;
+  font-size: 116px;
   color: var(--white);
   line-height: 1;
 }
@@ -523,15 +526,15 @@ html, body {
 .frozen-arrow {
   font-family: 'Permanent Marker', cursive;
   color: var(--red);
-  font-size: 120px;
-  transform: translateY(-14px);
+  font-size: 82px;
+  transform: translateY(-10px);
   text-shadow: 0 0 8px rgba(201,32,39,0.4);
 }
 .frozen-tape {
   display: block;
   width: fit-content;
-  margin: 14px auto 0;
-  font-size: 22px;
+  margin: 8px auto 0;
+  font-size: 18px;
   transform: rotate(-1.3deg);
 }
 .frozen-num.struck::after {
