@@ -108,19 +108,6 @@
   <p class="slide-sub">Five Guys' waste problem is mathematically optimal given its current forecast accuracy. That's the opportunity.</p>
 
   <div class="challenge-grid">
-    <div class="field-note-block">
-      <div class="kraft-receipt">
-        <div class="receipt-header">FIELD NOTE &nbsp;·&nbsp; Disney Village Paris &nbsp;·&nbsp; 08-04-26</div>
-        <p>Every morning, each store is handed a single forecasted revenue number. Ours was <strong>€28,000</strong>. Everything downstream — patties, potatoes, lettuce, labour — is a deterministic conversion from that number. It's inherited from upstream. Nobody in the store could interrogate it.</p>
-      </div>
-      <figure class="whiteboard-photo rot-a">
-        <img src="img/whiteboard.png" alt="Tableau des Préparations whiteboard with 28000 forecast circled">
-        <div class="sharpie-tape whiteboard-caption">
-          There it is. One number.<br>Inherited from upstream.
-        </div>
-      </figure>
-    </div>
-
     <div class="chalkboard frozen-hero">
       <div class="chalk-label">THE DAY DISNEY LAUNCHED FROZEN</div>
       <div class="frozen-numbers">
@@ -137,15 +124,22 @@
       <div class="sharpie-tape frozen-tape">A full day of fresh prep. Straight in the bin.</div>
     </div>
 
-    <div class="chalkboard newsvendor">
-      <div class="chalk-label">NEWSVENDOR WORKING</div>
-      <pre class="nv-math">Cu  =  store closure              =  catastrophic
-Co  ≈  30% COGS on unsold prep    =  painful but bounded
-Cu / (Cu + Co)  ≈  0.99           ←  critical ratio
-μ   =  €28,000                    ←  mean daily demand
-σ   =  ±€7,000                    ←  current forecast sigma
-Q*  ≈  €50,000 prep               ←  rational response at 99% service level</pre>
-      <div class="nv-punchline">STRUCTURAL 80% OVERSHOOT. EVERY DAY. BY DESIGN.</div>
+    <div class="challenge-bottom">
+      <div class="field-note-block">
+        <div class="kraft-receipt">
+          <div class="receipt-header">FIELD NOTE &nbsp;·&nbsp; Disney Village Paris &nbsp;·&nbsp; 08-04-26</div>
+          <p>Every morning, each store is handed a single forecasted revenue number. Ours was <strong>€28,000</strong>. Everything downstream — patties, potatoes, lettuce, labour — is a deterministic conversion from that number. Nobody in the store could interrogate it.</p>
+        </div>
+      </div>
+
+      <div class="chalkboard newsvendor">
+        <div class="chalk-label">NEWSVENDOR WORKING</div>
+        <pre class="nv-math">Cu / (Cu + Co)  ≈  0.99    ←  critical ratio
+μ   =  €28,000             ←  mean daily demand
+σ   =  ±€7,000             ←  current forecast sigma
+Q*  ≈  €50,000 prep        ←  rational response at 99% service</pre>
+        <div class="nv-punchline">STRUCTURAL 80% OVERSHOOT. EVERY DAY. BY DESIGN.</div>
+      </div>
     </div>
   </div>
 
