@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Five Guys × Newsvendor — Written Report — INSEAD POM</title>
+<title>Five Guys × Newsvendor  -  Written Report  -  INSEAD POM</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,600;0,800;1,400&family=Cabin+Sketch:wght@400;700&family=Permanent+Marker&display=swap" rel="stylesheet">
@@ -176,7 +176,7 @@ html, body {
   color: #888;
 }
 
-/* Chalkboard working — inline version */
+/* Chalkboard working  -  inline version */
 .chalk-inline {
   background:
     radial-gradient(ellipse at 20% 10%, rgba(255,255,255,0.06), transparent 60%),
@@ -360,7 +360,7 @@ html, body {
 }
 .twoup-block li:last-child { border-bottom: none; }
 
-/* Page footer — in normal flow so content never collides with it */
+/* Page footer  -  in normal flow so content never collides with it */
 .page { display: flex; flex-direction: column; }
 .page-foot {
   margin-top: auto;
@@ -405,7 +405,7 @@ html, body {
   margin: 6px 0 8px;
 }
 
-/* Print — A4 portrait, exact colours */
+/* Print  -  A4 portrait, exact colours */
 @media print {
   html, body { background: #fff; }
   .page {
@@ -429,7 +429,7 @@ html, body {
 <body>
 
 <!-- ============================================================
-     PAGE 1 — STEP 1 + STEP 2
+     PAGE 1  -  STEP 1 + STEP 2
      ============================================================ -->
 <section class="page">
   <header class="report-head">
@@ -459,7 +459,7 @@ html, body {
   </div>
 
   <div class="report-body">
-    <p>Five Guys is the operational outlier in European QSR. 294 stores across the UK, France, Spain and Germany, a 25% ten-year sales CAGR, a 22% ten-year store CAGR, and zero above-the-line advertising. Full European potential is ~870-950 stores — roughly a 3x runway from here <span class="deck-ref">(Deck, Slide 01)</span>. The constraints that make the food great — no freezers, no timers, no shortcuts, fresh same-day prep with fifteen-plus free toppings — also make the operations hard. Every store runs, in effect, a daily newsvendor bet with no salvage value.</p>
+    <p>Five Guys is the operational outlier in European QSR. 294 stores across the UK, France, Spain and Germany, a 25% ten-year sales CAGR, a 22% ten-year store CAGR, and zero above-the-line advertising. Full European potential is ~870-950 stores  -  roughly a 3x runway from here <span class="deck-ref">(Deck, Slide 01)</span>. The constraints that make the food great  -  no freezers, no timers, no shortcuts, fresh same-day prep with fifteen-plus free toppings  -  also make the operations hard. Every store runs, in effect, a daily newsvendor bet with no salvage value.</p>
 
     <p>Disney Village Paris is the busiest Five Guys location in France and the sharpest instance of the problem: peak demand of ~€4,000/hour, a four-hour park visit window during which guests are not eating, and a forecast that has to absorb weather, ride closures, school holidays, and concert schedules at the adjacent venue. We chose the site because the operations problem is real and visible there in a way it is not on a high-street location. A full team site visit on 08-04-26 with District Manager Stephanie Barth (four stores, 280 staff) provided the field data underpinning this report.</p>
   </div>
@@ -472,25 +472,25 @@ html, body {
   </div>
 
   <div class="report-body">
-    <p>Every morning each store is handed a single forecasted revenue number. At Disney Village on the day of our visit, that number was <strong>€28,000</strong>. Everything downstream — patties, potatoes, lettuce, labour — is a deterministic conversion from that number, mediated by an Excel "prep box" formula that takes the daily target plus current fridge inventory and outputs the day's prep quantities. Nobody on the floor could interrogate the €28,000. This is the structural problem the project addresses.</p>
+    <p>Every morning each store is handed a single forecasted revenue number. At Disney Village on the day of our visit, that number was <strong>€28,000</strong>. Everything downstream  -  patties, potatoes, lettuce, labour  -  is a deterministic conversion from that number, mediated by an Excel "prep box" formula that takes the daily target plus current fridge inventory and outputs the day's prep quantities. Nobody on the floor could interrogate the €28,000. This is the structural problem the project addresses.</p>
 
     <p>We did not have access to Five Guys' internal POS dataset, so the working below mixes <em>observed</em> values from the site visit with <em>plausible estimates</em> calibrated to what the District Manager shared. The epistemic status of each parameter is stated in the block.</p>
   </div>
 
   <div class="chalk-inline">
     <div class="chalk-label-inline">Newsvendor working · Disney Village · 08-04-26</div>
-    <div class="chalk-row"><span>μ</span><span>= <strong>€28,000</strong> &nbsp;·&nbsp; <em>observed</em> — the morning forecast handed to the store on the day of our visit</span></div>
-    <div class="chalk-row"><span>Cu / (Cu + Co)</span><span>≈ <strong>0.99</strong> &nbsp;·&nbsp; <em>inferred</em> — underage is catastrophic ("not allowed to be open if can't serve burgers or fries"); overage is absorbed within short shift windows (meat 3 shifts, veg 4). The ratio approaches 1.</span></div>
-    <div class="chalk-row"><span>σ</span><span>≈ <strong>±€7,000</strong> &nbsp;·&nbsp; <em>estimated</em> — calibrated to observed forecast-vs-actual dispersion (one extreme day: forecast €40k / actual €15k) and the chain waste line (€187k weekly turnover, 1.8% waste = €3,366, front-loaded into daily over-prep)</span></div>
-    <div class="chalk-row"><span>Q*</span><span>≈ <strong>€50,000</strong> prep &nbsp;·&nbsp; <em>derived</em> — rational newsvendor response at the implied ~99% service level given μ and σ above</span></div>
+    <div class="chalk-row"><span>μ</span><span>= <strong>€28,000</strong> &nbsp;·&nbsp; <em>observed</em>  -  the morning forecast handed to the store on the day of our visit</span></div>
+    <div class="chalk-row"><span>Cu / (Cu + Co)</span><span>≈ <strong>0.99</strong> &nbsp;·&nbsp; <em>inferred</em>  -  underage is catastrophic ("not allowed to be open if can't serve burgers or fries"); overage is absorbed within short shift windows (meat 3 shifts, veg 4). The ratio approaches 1.</span></div>
+    <div class="chalk-row"><span>σ</span><span>≈ <strong>±€7,000</strong> &nbsp;·&nbsp; <em>estimated</em>  -  calibrated to observed forecast-vs-actual dispersion (one extreme day: forecast €40k / actual €15k) and the chain waste line (€187k weekly turnover, 1.8% waste = €3,366, front-loaded into daily over-prep)</span></div>
+    <div class="chalk-row"><span>Q*</span><span>≈ <strong>€50,000</strong> prep &nbsp;·&nbsp; <em>derived</em>  -  rational newsvendor response at the implied ~99% service level given μ and σ above</span></div>
   </div>
 
   <div class="report-body">
-    <p style="font-size: 10.5px; color: #666; font-style: italic; margin-top: -2px;">Observed: μ and the waste line. Inferred / estimated: Cu/(Cu+Co) and σ. Derived: Q*. Sharper calibration would require POS data across stores — outside the scope of this project.</p>
+    <p style="font-size: 10.5px; color: #666; font-style: italic; margin-top: -2px;">Observed: μ and the waste line. Inferred / estimated: Cu/(Cu+Co) and σ. Derived: Q*. Sharper calibration would require POS data across stores  -  outside the scope of this project.</p>
   </div>
 
   <div class="report-body">
-    <p>Under these assumptions, the model yields a <strong>structural overshoot of roughly 80% above mean demand</strong> <span class="deck-ref">(Deck, Slide 02)</span>. The chronic story is the quiet one: small daily losses compounding across 294 stores. The tail story is louder but less frequent — on the day Disney launched its Frozen exhibit, a €40,000 forecast met €15,000 of actual sales because nobody modelled that visitors queue three hours in the exhibit and four hours elsewhere in the park, so they do not eat at Five Guys during that window. That is an illustrative extreme, not the daily pattern; the structural cost is the daily one.</p>
+    <p>Under these assumptions, the model yields a <strong>structural overshoot of roughly 80% above mean demand</strong> <span class="deck-ref">(Deck, Slide 02)</span>. The chronic story is the quiet one: small daily losses compounding across 294 stores. The tail story is louder but less frequent  -  on the day Disney launched its Frozen exhibit, a €40,000 forecast met €15,000 of actual sales because nobody modelled that visitors queue three hours in the exhibit and four hours elsewhere in the park, so they do not eat at Five Guys during that window. That is an illustrative extreme, not the daily pattern; the structural cost is the daily one.</p>
   </div>
 
   <div class="kraft-quote">
@@ -511,7 +511,7 @@ html, body {
 
 
 <!-- ============================================================
-     PAGE 2 — STEP 3 + RISKS
+     PAGE 2  -  STEP 3 + RISKS
      ============================================================ -->
 <section class="page">
   <header class="report-head">
@@ -532,11 +532,11 @@ html, body {
   </div>
 
   <div class="report-body">
-    <p>The asset that makes the intervention possible is not a model but a dataset. Ten years × 294 stores ≈ <strong>one million labelled store-days</strong> of forecast-vs-actual pairs, generated every day and — once consolidated across Europe — a uniquely rich training set for a generative AI forecasting system. The opportunity is not to build a better forecast. It is to run a permanent competition between many forecasts and let the data pick the winner, per store, per day.</p>
+    <p>The asset that makes the intervention possible is not a model but a dataset. Ten years × 294 stores ≈ <strong>one million labelled store-days</strong> of forecast-vs-actual pairs, generated every day and  -  once consolidated across Europe  -  a uniquely rich training set for a generative AI forecasting system. The opportunity is not to build a better forecast. It is to run a permanent competition between many forecasts and let the data pick the winner, per store, per day.</p>
 
-    <p>The redesigned process is a three-stage tournament <span class="deck-ref">(Deck, Slide 03)</span>. <strong>Stage 1:</strong> hundreds of candidate models are trained on signals the current manual forecast cannot absorb — Disney park attendance, weather, school holidays, hotel occupancy, local events, lagged POS, football fixtures, public holidays, day-of-week seasonality, concert schedules, competitor proximity. <strong>Stage 2:</strong> every model makes a prediction; every prediction is scored against actual revenue at close of business. Every store, every day. <strong>Stage 3:</strong> winners are promoted, losers retired. Models are selected per store and per cluster — Disney Village learns to weight park attendance; London City learns to weight office-worker density. The system becomes a self-refreshing forecasting capability, not a one-off model build.</p>
+    <p>The redesigned process is a three-stage tournament <span class="deck-ref">(Deck, Slide 03)</span>. <strong>Stage 1:</strong> hundreds of candidate models are trained on signals the current manual forecast cannot absorb  -  Disney park attendance, weather, school holidays, hotel occupancy, local events, lagged POS, football fixtures, public holidays, day-of-week seasonality, concert schedules, competitor proximity. <strong>Stage 2:</strong> every model makes a prediction; every prediction is scored against actual revenue at close of business. Every store, every day. <strong>Stage 3:</strong> winners are promoted, losers retired. Models are selected per store and per cluster  -  Disney Village learns to weight park attendance; London City learns to weight office-worker density. The system becomes a self-refreshing forecasting capability, not a one-off model build.</p>
 
-    <p>The POM mechanism is a demand-side real option analogous to the pre-sales information lever <span class="deck-ref">(Session 07)</span>. Same Cu, same Co, same critical ratio — tighter Q*, lower expected cost on every day, not just on the tails.</p>
+    <p>The POM mechanism is a demand-side real option analogous to the pre-sales information lever <span class="deck-ref">(Session 07)</span>. Same Cu, same Co, same critical ratio  -  tighter Q*, lower expected cost on every day, not just on the tails.</p>
   </div>
 
   <div class="report-impact">
@@ -545,7 +545,7 @@ html, body {
     <div class="ri-row"><span>Forecast σ (daily)</span><span>~±€7,000</span><span>~±€3,000</span></div>
     <div class="ri-row"><span>Q* at ~99% service</span><span>~€50,400</span><span>~€37,600</span></div>
     <div class="ri-row"><span>Prep overshoot vs mean</span><span>~+80%</span><span>~+34%</span></div>
-    <div class="ri-row ri-emph"><span>Per-store daily saving</span><span>—</span><span>~€12,800</span></div>
+    <div class="ri-row ri-emph"><span>Per-store daily saving</span><span> - </span><span>~€12,800</span></div>
   </div>
 
   <div class="report-body">
@@ -556,7 +556,7 @@ html, body {
     €12.8K / DAY &nbsp;×&nbsp; 294 STORES &nbsp;×&nbsp; 50% REALISM DISCOUNT &nbsp;=&nbsp; €50-200M INDICATIVE OPERATIONAL LEVER · NO CAPEX
   </div>
 
-  <!-- STEP 3B — RISKS -->
+  <!-- STEP 3B  -  RISKS -->
   <div class="step-header">
     <div class="step-number">04</div>
     <div class="step-title">Honest Risks &amp; What Must Be True</div>
@@ -567,7 +567,7 @@ html, body {
     <div class="twoup-block emph">
       <div class="twoup-label">New risks the intervention creates</div>
       <ul>
-        <li><strong>Tail events are thinnest in history</strong> — the Frozen launch, a park closure, a strike. Model confidence is weakest precisely where the cost is highest. Mitigation: explicit human-in-the-loop override on days flagged as out-of-distribution, with each override logged as training signal.</li>
+        <li><strong>Tail events are thinnest in history</strong>  -  the Frozen launch, a park closure, a strike. Model confidence is weakest precisely where the cost is highest. Mitigation: explicit human-in-the-loop override on days flagged as out-of-distribution, with each override logged as training signal.</li>
         <li><strong>False precision.</strong> A tighter σ that is systematically wrong is worse than an honest wide σ. Calibration must be monitored continuously, not annually.</li>
         <li><strong>Forecast ≠ full bottleneck.</strong> Stephanie's real-time judgement on staff allocation, station rebalancing and kiosk failures sits downstream of σ. A tournament improves the input she works from; it does not replace her decisions on the day.</li>
         <li><strong>Organisational trust.</strong> District Managers told us they do not auto-order today because "the difference between theory and reality is significant." The system must earn the right to reduce Q* progressively, not impose it.</li>
@@ -581,7 +581,7 @@ html, body {
         <li><strong>Forecast transparency.</strong> Every output shows drivers and confidence, so a District Manager can interrogate the number in a way she today cannot.</li>
         <li><strong>Override as training signal.</strong> Manager corrections feed back into the model registry. Agent advises; manager decides; the system learns from the disagreement.</li>
         <li><strong>Pilot-then-scale.</strong> Start with the 38 French stores, Disney Village as flagship. Scale to 294 once in-store calibration and trust are demonstrated.</li>
-        <li><strong>Realistic time horizon.</strong> 18-24 months to production; longer to organisational trust — consistent with the UPS ORION lesson that implementation is a decade-long journey.</li>
+        <li><strong>Realistic time horizon.</strong> 18-24 months to production; longer to organisational trust  -  consistent with the UPS ORION lesson that implementation is a decade-long journey.</li>
       </ul>
     </div>
   </div>
