@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Five Guys × Newsvendor — Written Report — INSEAD POM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,600;0,800;1,400&family=Cabin+Sketch:wght@400;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ============================================================
+   REPORT-SPECIFIC STYLES
+   Portrait A4 pages, same brand tokens as the deck.
+============================================================ */
+html, body {
+  background: #e8e6e0;
+  scroll-snap-type: none;
+}
+
+.page {
+  position: relative;
+  width: 794px;          /* A4 at 96dpi */
+  height: 1123px;
+  margin: 30px auto;
+  background: var(--white);
+  padding: 56px 64px 70px;
+  box-shadow: 0 18px 50px rgba(0,0,0,0.18);
+  overflow: hidden;
+  font-family: 'Archivo', sans-serif;
+  color: var(--ink);
+}
+
+/* subway-tile grout texture reused from slides */
+.page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(0,0,0,0.022) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0,0,0,0.022) 1px, transparent 1px);
+  background-size: 90px 46px;
+  pointer-events: none;
+  z-index: 0;
+}
+.page > * { position: relative; z-index: 1; }
+
+/* Report header block */
+.report-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+.report-brand-pill {
+  background: var(--red);
+  color: var(--white);
+  font-family: 'Anton', sans-serif;
+  font-size: 18px;
+  padding: 7px 16px 5px;
+  letter-spacing: 0.05em;
+  border-radius: 5px;
+  display: inline-block;
+}
+.report-meta {
+  font-family: 'Archivo', sans-serif;
+  font-size: 10.5px;
+  color: #666;
+  text-align: right;
+  line-height: 1.45;
+  letter-spacing: 0.02em;
+}
+.report-meta .meta-label {
+  font-weight: 800;
+  color: var(--chalk);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 9.5px;
+}
+
+.report-title {
+  font-family: 'Anton', sans-serif;
+  font-size: 52px;
+  line-height: 0.92;
+  color: var(--chalk);
+  margin-top: 4px;
+  letter-spacing: 0.005em;
+}
+.report-title .red { color: var(--red); }
+
+.report-sub {
+  font-family: 'Archivo', sans-serif;
+  font-size: 14px;
+  font-style: italic;
+  color: #444;
+  margin-top: 10px;
+  max-width: 620px;
+}
+
+.report-byline {
+  font-family: 'Archivo', sans-serif;
+  font-size: 10.5px;
+  color: #555;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 2px solid var(--chalk);
+}
+
+/* Section eyebrow / numbered step */
+.step-header {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-top: 22px;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px dashed rgba(0,0,0,0.25);
+}
+.step-number {
+  font-family: 'Anton', sans-serif;
+  font-size: 34px;
+  color: var(--red);
+  line-height: 0.9;
+}
+.step-title {
+  font-family: 'Anton', sans-serif;
+  font-size: 22px;
+  color: var(--chalk);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.step-kicker {
+  font-family: 'Archivo', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  color: var(--steel);
+  text-transform: uppercase;
+  margin-left: auto;
+}
+
+.report-body p {
+  font-family: 'Archivo', sans-serif;
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--ink);
+  margin-bottom: 9px;
+  text-align: justify;
+}
+.report-body p strong {
+  background: rgba(201,32,39,0.1);
+  padding: 0 3px;
+  font-weight: 700;
+}
+.report-body .deck-ref {
+  font-family: 'Archivo', sans-serif;
+  font-size: 10px;
+  font-style: italic;
+  color: #888;
+}
+
+/* Chalkboard working — inline version */
+.chalk-inline {
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(255,255,255,0.06), transparent 60%),
+    linear-gradient(135deg, #1f1f1f 0%, #151515 50%, #1a1a1a 100%);
+  color: var(--white);
+  padding: 14px 18px;
+  margin: 10px 0 12px;
+  border: 6px solid #3a2d1c;
+  border-radius: 3px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  position: relative;
+}
+.chalk-inline::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1.2px);
+  background-size: 5px 5px;
+  pointer-events: none;
+  opacity: 0.6;
+  mix-blend-mode: screen;
+}
+.chalk-inline > * { position: relative; z-index: 1; }
+.chalk-label-inline {
+  font-family: 'Cabin Sketch', cursive;
+  font-weight: 700;
+  font-size: 11px;
+  color: #cfcfcf;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.chalk-row {
+  font-family: 'Cabin Sketch', cursive;
+  font-size: 13px;
+  color: #f4f4f4;
+  line-height: 1.6;
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 8px;
+}
+.chalk-row strong {
+  color: #fff;
+  background: rgba(201,32,39,0.25);
+  padding: 0 4px;
+}
+
+/* Kraft pull-quote (Stephanie's voice) */
+.kraft-quote {
+  background:
+    radial-gradient(circle at 20% 30%, rgba(80,50,20,0.18) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(255,230,180,0.15) 0%, transparent 45%),
+    repeating-linear-gradient(97deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 3px),
+    var(--kraft);
+  color: var(--chalk);
+  padding: 14px 18px 16px;
+  margin: 10px 0 12px;
+  font-family: 'Archivo', sans-serif;
+  font-size: 11.5px;
+  line-height: 1.45;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.18);
+  transform: rotate(-0.3deg);
+  position: relative;
+}
+.kraft-quote::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -8px;
+  height: 10px;
+  background:
+    linear-gradient(135deg, var(--kraft) 5px, transparent 5px) 0 0 / 10px 10px,
+    linear-gradient(225deg, var(--kraft) 5px, transparent 5px) 0 0 / 10px 10px;
+}
+.kraft-quote-label {
+  font-family: 'Anton', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  border-bottom: 1px dashed rgba(0,0,0,0.4);
+  padding-bottom: 4px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+/* Impact table reused from deck, scaled */
+.report-impact {
+  background: #fefdf7;
+  padding: 12px 14px;
+  margin: 10px 0 12px;
+  border: 1px dashed rgba(0,0,0,0.2);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+.report-impact-head {
+  font-family: 'Anton', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  color: var(--chalk);
+  padding-bottom: 4px;
+  border-bottom: 2px solid var(--chalk);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+.ri-row {
+  display: grid;
+  grid-template-columns: 1.5fr 0.8fr 0.9fr;
+  font-family: 'Archivo', sans-serif;
+  font-size: 11px;
+  padding: 4px 0;
+  border-bottom: 1px dashed rgba(0,0,0,0.2);
+  color: var(--chalk);
+}
+.ri-row.ri-header span {
+  font-family: 'Anton', sans-serif;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  color: #555;
+  text-transform: uppercase;
+}
+.ri-row span:nth-child(2),
+.ri-row span:nth-child(3) { text-align: right; }
+.ri-row.ri-emph {
+  background: rgba(201,32,39,0.08);
+  font-weight: 700;
+}
+.ri-row.ri-emph span:nth-child(3) {
+  color: var(--red);
+  font-size: 12.5px;
+  font-weight: 800;
+}
+
+/* Red-pill mini-headline for the punchline */
+.report-punchline {
+  background: var(--red);
+  color: var(--white);
+  font-family: 'Anton', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.02em;
+  padding: 10px 18px 8px;
+  margin: 10px 0 14px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(201,32,39,0.2);
+}
+
+/* Risk / requirements two-up */
+.twoup {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 8px;
+}
+.twoup-block {
+  border-left: 3px solid var(--steel);
+  padding: 2px 0 2px 12px;
+}
+.twoup-block.emph {
+  border-left-color: var(--red);
+}
+.twoup-label {
+  font-family: 'Anton', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--steel);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.twoup-block.emph .twoup-label { color: var(--red); }
+.twoup-block p, .twoup-block li {
+  font-family: 'Archivo', sans-serif;
+  font-size: 10.5px;
+  line-height: 1.45;
+  color: #333;
+}
+.twoup-block ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.twoup-block li {
+  padding: 3px 0;
+  border-bottom: 1px dotted rgba(0,0,0,0.1);
+}
+.twoup-block li:last-child { border-bottom: none; }
+
+/* Page footer */
+.page-foot {
+  position: absolute;
+  left: 64px;
+  right: 64px;
+  bottom: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Archivo', sans-serif;
+  font-size: 9.5px;
+  color: #888;
+  letter-spacing: 0.04em;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  padding-top: 8px;
+}
+.page-foot .foot-mark {
+  font-family: 'Anton', sans-serif;
+  font-size: 11px;
+  color: var(--red);
+  letter-spacing: 0.08em;
+}
+.page-num {
+  font-family: 'Cabin Sketch', cursive;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--chalk);
+  transform: rotate(-2deg);
+  display: inline-block;
+}
+
+/* Sharpie callout reused */
+.sharpie-mini {
+  display: inline-block;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.4), transparent 30%),
+    #fdf9e8;
+  font-family: 'Permanent Marker', cursive;
+  color: #1a1a1a;
+  padding: 6px 12px 7px;
+  transform: rotate(-1deg);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  font-size: 12px;
+  margin: 6px 0 8px;
+}
+
+/* Print — A4 portrait, exact colours */
+@media print {
+  html, body { background: #fff; }
+  .page {
+    margin: 0 auto;
+    box-shadow: none;
+    page-break-after: always;
+    width: 210mm;
+    height: 297mm;
+    padding: 14mm 16mm 18mm;
+  }
+  .page:last-child { page-break-after: auto; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+@page {
+  size: A4 portrait;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     PAGE 1 — STEP 1 + STEP 2
+     ============================================================ -->
+<section class="page">
+  <header class="report-head">
+    <div>
+      <div class="report-brand-pill">FIVE GUYS · REPORT</div>
+    </div>
+    <div class="report-meta">
+      <div><span class="meta-label">Cell</span> &nbsp; GenAI × Newsvendor</div>
+      <div><span class="meta-label">Site</span> &nbsp; Disney Village, Paris</div>
+      <div><span class="meta-label">Visited</span> &nbsp; 08-04-26</div>
+      <div><span class="meta-label">Submitted</span> &nbsp; 23-04-26</div>
+    </div>
+  </header>
+
+  <h1 class="report-title">FIVE GUYS <span class="red">×</span> NEWSVENDOR</h1>
+  <p class="report-sub">A sigma-reduction strategy for the European QSR outlier. Written companion to the 15-04-26 presentation deck.</p>
+
+  <div class="report-byline">
+    <strong>Team Flank</strong> &nbsp;·&nbsp; Freddie Chambers &nbsp;·&nbsp; Andrew Bauer &nbsp;·&nbsp; Navya Pathak &nbsp;·&nbsp; Karim Hafez &nbsp;&nbsp;|&nbsp;&nbsp; INSEAD MBA 26D &nbsp;·&nbsp; Process &amp; Operations Management &nbsp;·&nbsp; P2 2026
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="step-header">
+    <div class="step-number">01</div>
+    <div class="step-title">The Company</div>
+    <div class="step-kicker">Real · Visible · Consequential</div>
+  </div>
+
+  <div class="report-body">
+    <p>Five Guys is the operational outlier in European QSR. 294 stores across the UK, France, Spain and Germany, a 25% ten-year sales CAGR, a 22% ten-year store CAGR, and zero above-the-line advertising. Full European potential is ~870-950 stores — roughly a 3x runway from here <span class="deck-ref">(Deck, Slide 01)</span>. The constraints that make the food great — no freezers, no timers, no shortcuts, fresh same-day prep with fifteen-plus free toppings — also make the operations hard. Every store runs, in effect, a daily newsvendor bet with no salvage value.</p>
+
+    <p>Disney Village Paris is the busiest Five Guys location in France and the sharpest instance of the problem: peak demand of ~€4,000/hour, a four-hour park visit window during which guests are not eating, and a forecast that has to absorb weather, ride closures, school holidays, and concert schedules at the adjacent venue. We chose the site because the operations problem is real and visible there in a way it is not on a high-street location. A full team site visit on 08-04-26 with District Manager Stephanie Barth (four stores, 280 staff) provided the field data underpinning this report.</p>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step-header">
+    <div class="step-number">02</div>
+    <div class="step-title">Diagnosis</div>
+    <div class="step-kicker">One number runs the store</div>
+  </div>
+
+  <div class="report-body">
+    <p>Every morning each store is handed a single forecasted revenue number. At Disney Village on the day of our visit, that number was <strong>€28,000</strong>. Everything downstream — patties, potatoes, lettuce, labour — is a deterministic conversion from that number, mediated by an Excel "prep box" formula that takes the daily target plus current fridge inventory and outputs the day's prep quantities. Nobody on the floor could interrogate the €28,000. This is the structural problem the project addresses.</p>
+
+    <p>We did not have access to Five Guys' internal POS dataset, so the working below mixes <em>observed</em> values from the site visit with <em>plausible estimates</em> calibrated to what the District Manager shared. The epistemic status of each parameter is stated in the block.</p>
+  </div>
+
+  <div class="chalk-inline">
+    <div class="chalk-label-inline">Newsvendor working · Disney Village · 08-04-26</div>
+    <div class="chalk-row"><span>μ</span><span>= <strong>€28,000</strong> &nbsp;·&nbsp; <em>observed</em> — the morning forecast handed to the store on the day of our visit</span></div>
+    <div class="chalk-row"><span>Cu / (Cu + Co)</span><span>≈ <strong>0.99</strong> &nbsp;·&nbsp; <em>inferred</em> — underage is catastrophic ("not allowed to be open if can't serve burgers or fries"); overage is absorbed within short shift windows (meat 3 shifts, veg 4). The ratio approaches 1.</span></div>
+    <div class="chalk-row"><span>σ</span><span>≈ <strong>±€7,000</strong> &nbsp;·&nbsp; <em>estimated</em> — calibrated to observed forecast-vs-actual dispersion (one extreme day: forecast €40k / actual €15k) and the chain waste line (€187k weekly turnover, 1.8% waste = €3,366, front-loaded into daily over-prep)</span></div>
+    <div class="chalk-row"><span>Q*</span><span>≈ <strong>€50,000</strong> prep &nbsp;·&nbsp; <em>derived</em> — rational newsvendor response at the implied ~99% service level given μ and σ above</span></div>
+  </div>
+
+  <div class="report-body">
+    <p style="font-size: 10.5px; color: #666; font-style: italic; margin-top: -2px;">Observed: μ and the waste line. Inferred / estimated: Cu/(Cu+Co) and σ. Derived: Q*. Sharper calibration would require POS data across stores — outside the scope of this project.</p>
+  </div>
+
+  <div class="report-body">
+    <p>Under these assumptions, the model yields a <strong>structural overshoot of roughly 80% above mean demand</strong> <span class="deck-ref">(Deck, Slide 02)</span>. The chronic story is the quiet one: small daily losses compounding across 294 stores. The tail story is louder but less frequent — on the day Disney launched its Frozen exhibit, a €40,000 forecast met €15,000 of actual sales because nobody modelled that visitors queue three hours in the exhibit and four hours elsewhere in the park, so they do not eat at Five Guys during that window. That is an illustrative extreme, not the daily pattern; the structural cost is the daily one.</p>
+  </div>
+
+  <div class="kraft-quote">
+    <div class="kraft-quote-label">Field note · 08-04-26</div>
+    <div>"We are the bottleneck. The difference between a good day and a bad day is the manager." &nbsp;·&nbsp; Stephanie, who manages four stores and 280 staff, said this before we found the kitchen. The forecast sits upstream of her. A tighter σ is the single upstream lever that gives her a better day to start from.</div>
+  </div>
+
+  <div class="report-body">
+    <p>Five Guys cannot move Cu. It cannot move Co without abandoning the hand-made, no-freezer model that is its brand. <strong>The only lever is σ.</strong> Reducing σ pulls Q* closer to μ regardless of critical ratio, and expected newsvendor cost strictly decreases as σ decreases. This is the course-level argument for the intervention that follows.</p>
+  </div>
+
+  <div class="page-foot">
+    <div class="foot-mark">FIVE GUYS × NEWSVENDOR</div>
+    <div>Team Flank · POM Final Report · INSEAD 26D</div>
+    <div class="page-num">p. 1</div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PAGE 2 — STEP 3 + RISKS
+     ============================================================ -->
+<section class="page">
+  <header class="report-head">
+    <div>
+      <div class="report-brand-pill">FIVE GUYS · REPORT</div>
+    </div>
+    <div class="report-meta">
+      <div><span class="meta-label">Page</span> &nbsp; 2 of 2</div>
+      <div><span class="meta-label">Companion</span> &nbsp; Deck, 15-04-26</div>
+    </div>
+  </header>
+
+  <!-- STEP 3 -->
+  <div class="step-header">
+    <div class="step-number">03</div>
+    <div class="step-title">Technology Intervention</div>
+    <div class="step-kicker">You don't need a better model. You need a tournament.</div>
+  </div>
+
+  <div class="report-body">
+    <p>The asset that makes the intervention possible is not a model but a dataset. Ten years × 294 stores ≈ <strong>one million labelled store-days</strong> of forecast-vs-actual pairs, generated every day and — once consolidated across Europe — a uniquely rich training set for a generative AI forecasting system. The opportunity is not to build a better forecast. It is to run a permanent competition between many forecasts and let the data pick the winner, per store, per day.</p>
+
+    <p>The redesigned process is a three-stage tournament <span class="deck-ref">(Deck, Slide 03)</span>. <strong>Stage 1:</strong> hundreds of candidate models are trained on signals the current manual forecast cannot absorb — Disney park attendance, weather, school holidays, hotel occupancy, local events, lagged POS, football fixtures, public holidays, day-of-week seasonality, concert schedules, competitor proximity. <strong>Stage 2:</strong> every model makes a prediction; every prediction is scored against actual revenue at close of business. Every store, every day. <strong>Stage 3:</strong> winners are promoted, losers retired. Models are selected per store and per cluster — Disney Village learns to weight park attendance; London City learns to weight office-worker density. The system becomes a self-refreshing forecasting capability, not a one-off model build.</p>
+
+    <p>The POM mechanism is a demand-side real option analogous to the pre-sales information lever <span class="deck-ref">(Session 07)</span>. Same Cu, same Co, same critical ratio — tighter Q*, lower expected cost on every day, not just on the tails.</p>
+  </div>
+
+  <div class="report-impact">
+    <div class="report-impact-head">Illustrative impact · per store · tournament σ target vs current</div>
+    <div class="ri-row ri-header"><span></span><span>Today (est.)</span><span>With tournament</span></div>
+    <div class="ri-row"><span>Forecast σ (daily)</span><span>~±€7,000</span><span>~±€3,000</span></div>
+    <div class="ri-row"><span>Q* at ~99% service</span><span>~€50,400</span><span>~€37,600</span></div>
+    <div class="ri-row"><span>Prep overshoot vs mean</span><span>~+80%</span><span>~+34%</span></div>
+    <div class="ri-row ri-emph"><span>Per-store daily saving</span><span>—</span><span>~€12,800</span></div>
+  </div>
+
+  <div class="report-body">
+    <p style="font-size: 10.5px; color: #666; font-style: italic; margin-top: -4px;">Target σ = ±€3,000 is indicative, benchmarked against typical gains reported in QSR demand-forecasting case studies. Actual uplift would be measured out-of-sample in pilot. The purpose of the table is to size the prize, not to promise a specific outcome.</p>
+  </div>
+
+  <div class="report-punchline">
+    €12.8K / DAY &nbsp;×&nbsp; 294 STORES &nbsp;×&nbsp; 50% REALISM DISCOUNT &nbsp;=&nbsp; €50-200M INDICATIVE OPERATIONAL LEVER · NO CAPEX
+  </div>
+
+  <!-- STEP 3B — RISKS -->
+  <div class="step-header">
+    <div class="step-number">04</div>
+    <div class="step-title">Honest Risks &amp; What Must Be True</div>
+    <div class="step-kicker">Theory vs reality</div>
+  </div>
+
+  <div class="twoup">
+    <div class="twoup-block emph">
+      <div class="twoup-label">New risks the intervention creates</div>
+      <ul>
+        <li><strong>Tail events are thinnest in history</strong> — the Frozen launch, a park closure, a strike. Model confidence is weakest precisely where the cost is highest. Mitigation: explicit human-in-the-loop override on days flagged as out-of-distribution, with each override logged as training signal.</li>
+        <li><strong>False precision.</strong> A tighter σ that is systematically wrong is worse than an honest wide σ. Calibration must be monitored continuously, not annually.</li>
+        <li><strong>Forecast ≠ full bottleneck.</strong> Stephanie's real-time judgement on staff allocation, station rebalancing and kiosk failures sits downstream of σ. A tournament improves the input she works from; it does not replace her decisions on the day.</li>
+        <li><strong>Organisational trust.</strong> District Managers told us they do not auto-order today because "the difference between theory and reality is significant." The system must earn the right to reduce Q* progressively, not impose it.</li>
+      </ul>
+    </div>
+
+    <div class="twoup-block">
+      <div class="twoup-label">What must be true · org · data · implementation</div>
+      <ul>
+        <li><strong>POS feeds centralised across 294 stores.</strong> Currently store-level, minimally networked. Without this, no tournament.</li>
+        <li><strong>Forecast transparency.</strong> Every output shows drivers and confidence, so a District Manager can interrogate the number in a way she today cannot.</li>
+        <li><strong>Override as training signal.</strong> Manager corrections feed back into the model registry. Agent advises; manager decides; the system learns from the disagreement.</li>
+        <li><strong>Pilot-then-scale.</strong> Start with the 38 French stores, Disney Village as flagship. Scale to 294 once in-store calibration and trust are demonstrated.</li>
+        <li><strong>Realistic time horizon.</strong> 18-24 months to production; longer to organisational trust — consistent with the UPS ORION lesson that implementation is a decade-long journey.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="report-body" style="margin-top: 12px;">
+    <p>Five Guys' waste is mathematically optimal given its current forecast accuracy. That is the opportunity. A tournament of models, powered by a million-store-day training set the company already generates but does not currently use, reduces structural daily overshoot from +80% to +34% without touching Cu, Co, or the hand-made model the brand is built on. The technology is not the forecast. The technology is the tournament.</p>
+  </div>
+
+  <div class="sharpie-mini">See accompanying deck (15-04-26) for the full visual argument &amp; field evidence.</div>
+
+  <div class="page-foot">
+    <div class="foot-mark">FIVE GUYS × NEWSVENDOR</div>
+    <div>Team Flank · POM Final Report · INSEAD 26D</div>
+    <div class="page-num">p. 2</div>
+  </div>
+</section>
+
+</body>
+</html>
